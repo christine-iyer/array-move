@@ -130,7 +130,35 @@ console.log("Odd Words:", oddWords);
 console.log("Discard:", discard);
 
 ```
+```js
+// Generate an array with 108 random strings for the example.
+const words = Array.from({ length: 108 }, (_, i) => `word${i + 1}`);
 
+const evenWords = [];
+const oddWords = [];
+const lastWord = [];
+
+// Populate the evenWords and oddWords arrays
+for (let i = 0; i < 6; i++) {
+  if (i % 2 === 0) {
+    evenWords.push(words[i]);
+  } else {
+    oddWords.push(words[i]);
+  }
+}
+
+// Populate the lastWord array with the next word in the dataset
+lastWord.push(words[6]);
+
+// Create the master dataset with the remaining elements
+const masterDataset = words.slice(7);
+
+console.log('Even Words:', evenWords);
+console.log('Odd Words:', oddWords);
+console.log('Last Word:', lastWord);
+console.log('Master Dataset:', masterDataset);
+console.log('Master Dataset Length:', masterDataset.length);
+```
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
