@@ -36,6 +36,10 @@ function App() {
 
     } if (turn === 'B' && arrayB.length < 4) {
       moveItem(item, master, setMaster, arrayB, setArrayB);
+      setTurn('C');
+    } 
+    if (turn === 'C' && arrayC.length < 2) {
+      moveItem(item, master, setMaster, arrayC, setArrayC);
       setTurn('A');
     }
   };
