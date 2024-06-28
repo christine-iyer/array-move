@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import Hand from './components/Hand';
+import Deck from './components/Deck';
 import './App.css';
 
 const arrayMaster = [{ name: "A", value: 1 },
@@ -14,6 +16,7 @@ const arrayMaster = [{ name: "A", value: 1 },
 ];
 
 function App() {
+  const [roundNumber, setRoundNumber] = useState(1); 
   const [round, setRound] = useState(0)
   const [master, setMaster] = useState(arrayMaster);
   const [arrayA, setArrayA] = useState([]);
@@ -85,6 +88,9 @@ function App() {
 
   return (
     <div className="container">
+      <Hand />
+      <Deck arrayC={arrayC} handleArrayCClick={handleArrayCClick} />
+      <Hand/>
       <div className="round-container">
         <h2>Round: {round}</h2>
         <button onClick={handleClick}>Click to advance to next</button>
