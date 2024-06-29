@@ -25,6 +25,7 @@ const Card = ({ number, color, symbol, name }) => {
              <div className="bottom-symbol ">
                <span className="bottom-symbol-sigle">{symbol}</span>
                <p>{number}</p>
+               
              </div>
            </div>
          </div>

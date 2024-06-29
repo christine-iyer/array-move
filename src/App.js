@@ -151,13 +151,19 @@
 // }
 
 // export default App;
+
 import "./App.css";
-import Card from "./components/app/Card";
+import Card from "./components/cardsApp/Card";
+import CardWrapper from "./components/cardsApp/CardWrapper";
+import FlipCard from "./components//flipApp/FlipCard";
 
 function App() {
   return (
     <div className="App">
-      <Card symbol="🧊" color="red" number="1" />
+      <Card symbol="🐞" color="red" number="1" />
+      <CardWrapper cardsNumber='5'/>
+      <FlipCard />
+    
     </div>
   );
 }
