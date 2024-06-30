@@ -160,8 +160,8 @@ import FlipCard from "./components//flipApp/FlipCard";
 function App() {
   return (
     <div className="App">
-      <Card symbol="🐞" color="red" number="1" />
-      <CardWrapper cardsNumber='5'/>
+      {/* <Card symbol="🐞" color="red" number="1" />
+      <CardWrapper cardsNumber='5'/> */}
       <FlipCard />
     
     </div>

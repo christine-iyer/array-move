@@ -1,4 +1,7 @@
 import { useState } from 'react'
+import Card from './Card'
+
+
 const cardImages = [
      { "word": "bad" },
      { "word": "bed" },
@@ -70,18 +73,9 @@ export default function FlipCard() {
                <button onClick={shuffleCards}>NewGame</button>
                <div className='card-grid'>
                     {cards.map(card => (
-                         <div className="card" key={card.id}>
-                              <div>
-                                   <p className = "front">{card.word}</p>
-                                   
-
-                              </div>   
-                              </div>                  
-                              ))}
-                         </div>
-                         </div>
-
-                    )
-     
-     
+                         <Card key={card.id} card={card}/>
+                    ))}
+               </div>
+          </div>
+     )
 }
