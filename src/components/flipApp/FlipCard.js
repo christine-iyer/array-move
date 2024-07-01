@@ -57,13 +57,17 @@ const cardImages = [
 export default function FlipCard() {
      const [cards, setCards] = useState([])
      const [turns, setTurns] = useState(0)
+     const [choiceOne, setChoiceOne] = useState(null)
+     const [choiceTwo, setChoiceTwo] = useState(null)
      const shuffleCards = () => {
           const shuffledCards = [...cardImages, ...cardImages]
                .sort(() => Math.random() - 0.5)
                .map((card) => ({ ...card, id: Math.random() }))
           setCards(shuffledCards)
           setTurns(0)
-          console.log(cards, turns)
+     }
+     const handleChoice = (card)=>{
+          choiceOne ? setChoiceTwo(card) : setChoiceOne(card)
      }
 
 
@@ -73,7 +77,7 @@ export default function FlipCard() {
                <button onClick={shuffleCards}>NewGame</button>
                <div className='card-grid'>
                     {cards.map(card => (
-                         <Card key={card.id} card={card}/>
+                         <Card key={card.id} card={card} handleChoice={handleChoice}/>
                     ))}
                </div>
           </div>
