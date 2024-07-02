@@ -139,7 +139,7 @@ export default function FlipCard() {
                               disabled={disabled}
                          />
                     ))}
-                    <p style={{ fontSize: '27px' }}>Turns: {turns}</p>
+                    <p style={{ fontSize: '27px' }}>Misses: {turns}</p>
                </div>
           </div>
      );
