@@ -10,8 +10,8 @@ export default function Card({ card, handleChoice, flipped, disabled }) {
      return (
           <div className="card" >
                <div className={flipped ? "flipped" : ""}>
-                    <div className="front">{card.word}</div>
-                    <img src='/logo192.png' onClick={handleClick} className="back" alt="back" />
+                    <p className="front">{card.word.toUpperCase()}</p>
+                    <img src='/IMG_4816.jpg' onClick={handleClick} className="back" alt="back" />
                </div>
           </div>
      )

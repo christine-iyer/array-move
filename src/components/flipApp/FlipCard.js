@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react'
-import Card from './Card'
-
+import { useState, useEffect } from 'react';
+import Card from './Card';
+import confetti from 'canvas-confetti';
 
 const cardImages = [
      { "word": "bad", "matched": false },
@@ -15,94 +15,116 @@ const cardImages = [
      { "word": "cap", "matched": false },
      { "word": "cup", "matched": false },
      { "word": "dig", "matched": false },
-     // { "word": "dot" , "matched": false },},
-     // { "word": "fix" , "matched": false },},
-     // { "word": "fog" , "matched": false },},
-     // { "word": "fox" , "matched": false },},
-     // { "word": "fun" , "matched": false },},
-     // { "word": "gas" , "matched": false },},
-     // { "word": "got" , "matched": false },},
-     // { "word": "hen" , "matched": false },},
-     // { "word": "hog" , "matched": false },},
-     // { "word": "hip" , "matched": false },},
-     // { "word": "hug" , "matched": false },},
-     // { "word": "hum" , "matched": false },},
-     // { "word": "jet" , "matched": false },},
-     // { "word": "job" , "matched": false },},
-     // { "word": "jog" , "matched": false },},
-     // { "word": "jug" , "matched": false },},
-     // { "word": "kid" , "matched": false },},
-     // { "word": "leg" , "matched": false },},
-     // { "word": "lip" , "matched": false },},
-     // { "word": "man" , "matched": false },},
-     // { "word": "map" , "matched": false },},
-     // { "word": "men" , "matched": false },},
-     // { "word": "mix" , "matched": false },},
-     // { "word": "nap" , "matched": false },},
-     // { "word": "pen" , "matched": false },},
-     // { "word": "rag" , "matched": false },},
-     // { "word": "rob" , "matched": false },},
-     // { "word": "rug" , "matched": false },},
-     // { "word": "six" , "matched": false },},
-     // { "word": "sun" , "matched": false },},
-     // { "word": "tax" , "matched": false },},
-     // { "word": "ten" , "matched": false },},
-     // { "word": "wax" , "matched": false },},
-     // { "word": "web" , "matched": false },},
-     // { "word": "wet" , "matched": false },},
-     // { "word": "wig" , "matched": false },},
-     // { "word": "win" , "matched": false },},
-     // { "word": "yes" , "matched": false },},
-]
-export default function FlipCard() {
-     const [cards, setCards] = useState([])
-     const [turns, setTurns] = useState(0)
-     const [choiceOne, setChoiceOne] = useState(null)
-     const [choiceTwo, setChoiceTwo] = useState(null)
-     const [disabled, setDisabled] = useState(false)
-     const shuffleCards = () => {
-          const shuffledCards = [...cardImages, ...cardImages]
-               .sort(() => Math.random() - 0.5)
-               .map((card) => ({ ...card, id: Math.random() }))
+     { "word": "dot", "matched": false },
+     { "word": "fix", "matched": false },
+     { "word": "fog", "matched": false },
+     { "word": "fox", "matched": false },
+     { "word": "fun", "matched": false },
+     { "word": "gas", "matched": false },
+     { "word": "got", "matched": false },
+     { "word": "hen", "matched": false },
+     { "word": "hog", "matched": false },
+     { "word": "hip", "matched": false },
+     { "word": "hug", "matched": false },
+     { "word": "hum", "matched": false },
+     { "word": "jet", "matched": false },
+     { "word": "job", "matched": false },
+     { "word": "jog", "matched": false },
+     { "word": "jug", "matched": false },
+     { "word": "kid", "matched": false },
+     { "word": "leg", "matched": false },
+     { "word": "lip", "matched": false },
+     { "word": "man", "matched": false },
+     { "word": "map", "matched": false },
+     { "word": "men", "matched": false },
+     { "word": "mix", "matched": false },
+     { "word": "nap", "matched": false },
+     { "word": "pen", "matched": false },
+     { "word": "rag", "matched": false },
+     { "word": "rob", "matched": false },
+     { "word": "rug", "matched": false },
+     { "word": "six", "matched": false },
+     { "word": "sun", "matched": false },
+     { "word": "tax", "matched": false },
+     { "word": "ten", "matched": false },
+     { "word": "wax", "matched": false },
+     { "word": "web", "matched": false },
+     { "word": "wet", "matched": false },
+     { "word": "wig", "matched": false },
+     { "word": "win", "matched": false },
+     { "word": "yes", "matched": false },
+];
 
-          setChoiceOne(null)
-          setChoiceTwo(null)
-          setCards(shuffledCards)
-          setTurns(0)
-     }
+function getRandomSubset(arr, n) {
+     const subset = [...arr].sort(() => Math.random() - 0.5);
+     return subset.slice(0, n);
+}
+
+export default function FlipCard() {
+     const [cards, setCards] = useState([]);
+     const [turns, setTurns] = useState(0);
+     const [choiceOne, setChoiceOne] = useState(null);
+     const [choiceTwo, setChoiceTwo] = useState(null);
+     const [disabled, setDisabled] = useState(false);
+
+     const shuffleCards = () => {
+          const selected = getRandomSubset(cardImages, 6);
+          const shuffledCards = [...selected, ...selected]
+               .sort(() => Math.random() - 0.5)
+               .map((card) => ({ ...card, id: Math.random() }));
+
+          setChoiceOne(null);
+          setChoiceTwo(null);
+          setCards(shuffledCards);
+          setTurns(0);
+     };
+
      const handleChoice = (card) => {
-          choiceOne ? setChoiceTwo(card) : setChoiceOne(card)
-     }
+          choiceOne ? setChoiceTwo(card) : setChoiceOne(card);
+     };
+
      useEffect(() => {
           if (choiceOne && choiceTwo) {
-               setDisabled(true)
+               setDisabled(true);
                if (choiceOne.word === choiceTwo.word) {
                     setCards(prevCards => {
                          return prevCards.map(card => {
                               if (card.word === choiceOne.word) {
-                                   return { ...card, matched: true }
+                                   return { ...card, matched: true };
                               } else {
                                    return card;
                               }
-                         })
-                    })
-                    resetTurn()
+                         });
+                    });
+                    setTimeout(() => {
+                         triggerConfetti(); // Trigger confetti on match
+                         resetTurn()
+                    }, 1000)
+
                } else {
-                    setTimeout(() => resetTurn(), 1000)
+                    setTimeout(() => resetTurn(), 1000);
                }
           }
-     }, [choiceOne, choiceTwo])
-     console.log(cards)
+     }, [choiceOne, choiceTwo]);
+
+     const triggerConfetti = () => {
+          confetti({
+               particleCount: 1000,
+               spread: 170,
+               origin: { y: 0.6 }
+          });
+     };
 
      const resetTurn = () => {
-          setChoiceOne(null)
-          setChoiceTwo(null)
-          setTurns(prev => prev + 1)
-          setDisabled(false)
-     }
+          setChoiceOne(null);
+          setChoiceTwo(null);
+          setTurns(prev => prev + 1);
+          setDisabled(false);
+     };
+
      useEffect(() => {
-          shuffleCards()
-     }, [])
+          shuffleCards();
+     }, []);
 
      return (
           <div className="flipcard">
@@ -117,8 +139,8 @@ export default function FlipCard() {
                               disabled={disabled}
                          />
                     ))}
-                    <p>Turns: {turns}</p>
+                    <p style={{ fontSize: '27px' }}>Turns: {turns - 6}</p>
                </div>
           </div>
-     )
+     );
 }
