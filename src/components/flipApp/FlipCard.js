@@ -98,7 +98,7 @@ export default function FlipCard() {
                     });
                     setTimeout(() => {
                          triggerConfetti(); // Trigger confetti on match
-                         resetTurn()
+                         resetTurn(true)
                     }, 1000)
 
                } else {
@@ -115,10 +115,10 @@ export default function FlipCard() {
           });
      };
 
-     const resetTurn = () => {
+     const resetTurn = (matched) => {
           setChoiceOne(null);
           setChoiceTwo(null);
-          setTurns(prev => prev + 1);
+          setTurns(prev => prev +  (matched ? 0 : 1 ));
           setDisabled(false);
      };
 
@@ -139,7 +139,7 @@ export default function FlipCard() {
                               disabled={disabled}
                          />
                     ))}
-                    <p style={{ fontSize: '27px' }}>Turns: {turns - 6}</p>
+                    <p style={{ fontSize: '27px' }}>Turns: {turns}</p>
                </div>
           </div>
      );
